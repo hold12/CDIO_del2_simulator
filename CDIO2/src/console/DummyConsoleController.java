@@ -27,13 +27,13 @@ public class DummyConsoleController implements IUIController{
 	@Override
 	public void showMenu() {
 		// TODO Show some fancy menu!
-		
 	}
 
 	@Override
 	public void showMessage(String string) {
-		// TODO Show a message to the user (And maybe redraw menu?)
+		// TODO Show a message to the user on the displat
 		
 	}
+
 
 }

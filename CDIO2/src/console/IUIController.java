@@ -8,5 +8,6 @@ public interface IUIController extends Runnable {
 	
 	void showMenu();
 	void showMessage(String string);
+	//TODO add other functions?
 
 }
