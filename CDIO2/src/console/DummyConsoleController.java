@@ -1,38 +1,27 @@
 package console;
 
-public class DummyConsoleController implements IUIController{
+public class DummyConsoleController implements IWeightInterfaceController{
 
 	@Override
 	public void run() {
-		// TODO Some logic to catch some input!
+		// TODO Some logic to catch some input and notify the observers
 		
 	}
 
 	@Override
-	public void registerObserver(IUIObserver uiObserver) {
+	public void registerObserver(IWeightInterfaceObserver uiObserver) {
 		// TODO keep track of observers
 	}
 
 	@Override
-	public void unRegisterObserver(IUIObserver uiObserver) {
-		// TODO Remove observer from list
-		
+	public void unRegisterObserver(IWeightInterfaceObserver uiObserver) {
+		// TODO Remove observer from list	
 	}
 
-	@Override
-	public void notifyObservers(UIInMessage inMessage) {
-		// TODO notify your observers
-	}
 
 	@Override
-	public void showMenu() {
-		// TODO Show some fancy menu!
-	}
-
-	@Override
-	public void showMessage(String string) {
-		// TODO Show a message to the user on the displat
-		
+	public void showMessagePrimaryDisplay(String string) {
+		// TODO Show a message to the user on the display		
 	}
 
 

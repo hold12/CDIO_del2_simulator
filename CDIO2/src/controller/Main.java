@@ -1,7 +1,7 @@
 package controller;
 
 import console.DummyConsoleController;
-import console.IUIController;
+import console.IWeightInterfaceController;
 import socket.DummySocketHandler;
 import socket.ISocketController;
 /**
@@ -12,11 +12,10 @@ import socket.ISocketController;
 public class Main {
 
 	public static void main(String[] args) {
-		IMainController mainCtrl = new DummyMainController();
 		ISocketController socketHandler = new DummySocketHandler();
-		IUIController uiController = new DummyConsoleController();
-		//Injecting socket and uiController - Replace with improved versions...
-		mainCtrl.init(socketHandler, uiController);
+		IWeightInterfaceController uiController = new DummyConsoleController();
+		//Injecting socket and uiController into mainController - Replace with improved versions...
+		IMainController mainCtrl = new DummyMainController(socketHandler, uiController);
 		//.init and .start could be merged
 		mainCtrl.start();
 		

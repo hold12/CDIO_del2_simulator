@@ -1,7 +1,7 @@
 package controller;
 
-import console.IUIController;
-import console.IUIObserver;
+import console.IWeightInterfaceController;
+import console.IWeightInterfaceObserver;
 import console.UIInMessage;
 import socket.ISocketController;
 import socket.ISocketObserver;
@@ -12,13 +12,17 @@ import socket.SocketInMessage;
  * @version 0.1 2017-01-24
  *
  */
-public class DummyMainController implements IMainController, ISocketObserver, IUIObserver {
+public class DummyMainController implements IMainController, ISocketObserver, IWeightInterfaceObserver {
 
 	private ISocketController socketHandler;
-	private IUIController uiController;
+	private IWeightInterfaceController uiController;
+	
+	public DummyMainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
+		this.init(socketHandler, uiController);
+	}
 
 	@Override
-	public void init(ISocketController socketHandler, IUIController uiController) {
+	public void init(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.socketHandler = socketHandler;
 		this.uiController=uiController;
 	}
@@ -45,14 +49,20 @@ public class DummyMainController implements IMainController, ISocketObserver, IU
 	public void notify(SocketInMessage message) {
 		//TODO implement logic for handling input from socket
 		System.out.println("Message from Socket received:" + message);
-		uiController.showMessage("Message received" + message); //Some dummy code
+		uiController.showMessagePrimaryDisplay("Message received" + message); //Some dummy code
 	}
 	//Listening for UI input
 	@Override
-	public void notify(UIInMessage consoleInMessage) {
+	public void notifyKeyPress(UIInMessage consoleInMessage) {
 		//TODO implement logic for handling input from ui
 		System.out.println("Got input from UI" + consoleInMessage);
 
+	}
+
+	@Override
+	public void notifyWeightChange(double newWeight) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
