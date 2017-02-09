@@ -71,7 +71,7 @@ public class DummySocketHandler implements ISocketController {
 			String inLine;
 			//.readLine is a blocking call 
 			//TODO How do you handle simultaneous input and output on socket?
-			//TODO this only allows for one open connection - how would you handle multiple connections=
+			//TODO this only allows for one open connection - how would you handle multiple connections?
 			while (!(inLine = inStream.readLine().toUpperCase()).isEmpty()){
 				 switch (inLine.split(" ")[0]) {
 				case "RM":
