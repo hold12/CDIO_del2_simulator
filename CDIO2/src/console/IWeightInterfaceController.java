@@ -6,6 +6,12 @@ public interface IWeightInterfaceController extends Runnable {
 	void unRegisterObserver(IWeightInterfaceObserver uiObserver);
 	
 	void showMessagePrimaryDisplay(String string);
-	//TODO add other functions?
+	void showMessageSecondaryDisplay(String string);
+	void changeInputType(InputType type);
+	void setSoftButtonTexts(String[] texts);
+	
+	public enum InputType {
+		UPPER, LOWER, NUMBERS
+	}
 
 }

@@ -24,5 +24,22 @@ public class DummyConsoleController implements IWeightInterfaceController{
 		// TODO Show a message to the user on the display		
 	}
 
+	@Override
+	public void showMessageSecondaryDisplay(String string) {
+		// TODO Show a message to the user on the display
+		
+	}
+
+	@Override
+	public void changeInputType(InputType type) {
+		// TODO Change inputType
+		
+	}
+
+	@Override
+	public void setSoftButtonTexts(String[] texts) {
+		// TODO set softbutton texts	
+	}
+
 
 }
