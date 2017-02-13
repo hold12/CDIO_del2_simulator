@@ -15,7 +15,7 @@ import socket.SocketInMessage;
 public class DummyMainController implements IMainController, ISocketObserver, IWeightInterfaceObserver {
 
 	private ISocketController socketHandler;
-	private IWeightInterfaceController uiController;
+	private IWeightInterfaceController weightController;
 	
 	public DummyMainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -24,20 +24,20 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 	@Override
 	public void init(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.socketHandler = socketHandler;
-		this.uiController=uiController;
+		this.weightController=uiController;
 	}
 
 	@Override
 	public void start() {
-		if (socketHandler!=null && uiController!=null){
+		if (socketHandler!=null && weightController!=null){
 		//Make this controller interested in messages from the socket
 		socketHandler.registerObserver(this);
 		//Start socketHandler in own thread
 		new Thread(socketHandler).start();
 		//Sign up for consoleInput
-		uiController.registerObserver(this);
+		weightController.registerObserver(this);
 		//Start uiController in own thread
-		new Thread(uiController).start();
+		new Thread(weightController).start();
 		} else {
 			System.err.println("No controllers injected!");
 			//TODO handle with some exception?
@@ -49,7 +49,7 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 	public void notify(SocketInMessage message) {
 		//TODO implement logic for handling input from socket
 		System.out.println("Message from Socket received:" + message);
-		uiController.showMessagePrimaryDisplay("Message received" + message); //Some dummy code
+		weightController.showMessagePrimaryDisplay("Message received" + message); //Some dummy code
 	}
 	//Listening for UI input
 	@Override
