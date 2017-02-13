@@ -1,7 +1,7 @@
 package console;
 
 public interface IWeightInterfaceObserver {
-	void notifyKeyPress(UIInMessage keypress);
+	void notifyKeyPress(KeyPress keypress);
 	void notifyWeightChange(double newWeight);
 
 }

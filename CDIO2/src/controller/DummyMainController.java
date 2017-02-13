@@ -2,7 +2,7 @@ package controller;
 
 import console.IWeightInterfaceController;
 import console.IWeightInterfaceObserver;
-import console.UIInMessage;
+import console.KeyPress;
 import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
@@ -53,9 +53,9 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 	}
 	//Listening for UI input
 	@Override
-	public void notifyKeyPress(UIInMessage consoleInMessage) {
+	public void notifyKeyPress(KeyPress keyPress) {
 		//TODO implement logic for handling input from ui
-		System.out.println("Got input from UI" + consoleInMessage);
+		System.out.println("Got input from UI" + keyPress);
 
 	}
 
