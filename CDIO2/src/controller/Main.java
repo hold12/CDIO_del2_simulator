@@ -1,8 +1,8 @@
 package controller;
 
-import console.DummyConsoleController;
+import console.ConsoleWeightInterfaceController;
 import console.IWeightInterfaceController;
-import socket.DummySocketHandler;
+import socket.SocketController;
 import socket.ISocketController;
 /**
  * Simple class to fire up application and inject implementations
@@ -12,10 +12,10 @@ import socket.ISocketController;
 public class Main {
 
 	public static void main(String[] args) {
-		ISocketController socketHandler = new DummySocketHandler();
-		IWeightInterfaceController weightController = new DummyConsoleController();
+		ISocketController socketHandler = new SocketController();
+		IWeightInterfaceController weightController = new ConsoleWeightInterfaceController();
 		//Injecting socket and uiController into mainController - Replace with improved versions...
-		IMainController mainCtrl = new DummyMainController(socketHandler, weightController);
+		IMainController mainCtrl = new MainController(socketHandler, weightController);
 		//.init and .start could be merged
 		mainCtrl.start();
 		

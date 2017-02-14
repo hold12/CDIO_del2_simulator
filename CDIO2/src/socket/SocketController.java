@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DummySocketHandler implements ISocketController {
+public class SocketController implements ISocketController {
 	Set<ISocketObserver> observers = new HashSet<ISocketObserver>();
 	// Maybe add some way to keep track of multiple connections?
 	private BufferedReader inStream;

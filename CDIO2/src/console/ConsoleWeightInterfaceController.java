@@ -1,6 +1,6 @@
 package console;
 
-public class DummyConsoleController implements IWeightInterfaceController{
+public class ConsoleWeightInterfaceController implements IWeightInterfaceController{
 
 	@Override
 	public void run() {

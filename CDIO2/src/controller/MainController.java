@@ -12,12 +12,12 @@ import socket.SocketInMessage;
  * @version 0.1 2017-01-24
  *
  */
-public class DummyMainController implements IMainController, ISocketObserver, IWeightInterfaceObserver {
+public class MainController implements IMainController, ISocketObserver, IWeightInterfaceObserver {
 
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 
-	public DummyMainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
+	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
 	}
 
