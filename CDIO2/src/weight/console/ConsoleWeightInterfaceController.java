@@ -2,9 +2,12 @@ package weight.console;
 
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
-import weight.IWeightInterfaceController.InputType;
 
-@Deprecated
+/**
+ * For implementing a console version of weightinterface
+ * @author Christian
+ *
+ */
 public class ConsoleWeightInterfaceController implements IWeightInterfaceController{
 
 	@Override
