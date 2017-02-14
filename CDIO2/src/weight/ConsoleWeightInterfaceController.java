@@ -1,4 +1,4 @@
-package console;
+package weight;
 
 public class ConsoleWeightInterfaceController implements IWeightInterfaceController{
 

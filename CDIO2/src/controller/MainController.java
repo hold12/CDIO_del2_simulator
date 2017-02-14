@@ -1,11 +1,11 @@
 package controller;
 
-import console.IWeightInterfaceController;
-import console.IWeightInterfaceObserver;
-import console.KeyPress;
 import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
+import weight.IWeightInterfaceController;
+import weight.IWeightInterfaceObserver;
+import weight.KeyPress;
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz

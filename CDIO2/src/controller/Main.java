@@ -1,8 +1,8 @@
 package controller;
 
-import console.ConsoleWeightInterfaceController;
-import console.IWeightInterfaceController;
 import socket.SocketController;
+import weight.ConsoleWeightInterfaceController;
+import weight.IWeightInterfaceController;
 import socket.ISocketController;
 /**
  * Simple class to fire up application and inject implementations

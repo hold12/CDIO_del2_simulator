@@ -27,13 +27,6 @@ public class SocketController implements ISocketController {
 	}
 
 	@Override
-	public void notifyObservers(SocketInMessage message) {
-		for (ISocketObserver socketObserver : observers) {
-			socketObserver.notify(message);
-		}
-	}
-
-	@Override
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
 			try {
@@ -72,30 +65,43 @@ public class SocketController implements ISocketController {
 			//.readLine is a blocking call 
 			//TODO How do you handle simultaneous input and output on socket?
 			//TODO this only allows for one open connection - how would you handle multiple connections?
-			while (!(inLine = inStream.readLine().toUpperCase()).isEmpty()){
+			while (true){
+				inLine = inStream.readLine();
+				System.out.println(inLine);
+				if (inLine==null) break;
 				 switch (inLine.split(" ")[0]) {
-				case "RM":
+				case "RM20":
 					//TODO implement logic for RM command
-					notifyObservers(new SocketInMessage("Got RM command!"));
 					break;
 				case "D":
+					//TODO implement
 					break;
 				case "T":
+					//TODO implement
 					break;
 				case "S":
+					//TODO implement
 					break;
 				case "B":
+					//TODO implement
 					break;
 				case "Q":
+					//TODO implement
 					break;
 				default:
-					sendMessage(new SocketOutMessage("Unknown Command"));
+					//TODO implement
 					break;
 				}
 			 }
 		} catch (IOException e) {
 			//TODO maybe notify mainController?
 			e.printStackTrace();
+		}
+	}
+	
+	private void notifyObservers(SocketInMessage message) {
+		for (ISocketObserver socketObserver : observers) {
+			socketObserver.notify(message);
 		}
 	}
 

@@ -1,7 +1,7 @@
 package controller;
 
-import console.IWeightInterfaceController;
 import socket.ISocketController;
+import weight.IWeightInterfaceController;
 
 public interface IMainController {
 	void init(ISocketController socketHandler, IWeightInterfaceController uiController);

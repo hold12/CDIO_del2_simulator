@@ -1,4 +1,4 @@
-package console;
+package weight;
 
 /**
  * DTO for user input

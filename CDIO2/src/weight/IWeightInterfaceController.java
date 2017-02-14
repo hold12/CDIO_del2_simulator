@@ -1,4 +1,4 @@
-package console;
+package weight;
 
 public interface IWeightInterfaceController extends Runnable {
 	
