@@ -16,7 +16,7 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
-	
+
 	public DummyMainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
 	}
@@ -30,17 +30,15 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 	@Override
 	public void start() {
 		if (socketHandler!=null && weightController!=null){
-		//Make this controller interested in messages from the socket
-		socketHandler.registerObserver(this);
-		//Start socketHandler in own thread
-		new Thread(socketHandler).start();
-		//Sign up for consoleInput
-		weightController.registerObserver(this);
-		//Start uiController in own thread
-		new Thread(weightController).start();
+			//Make this controller interested in messages from the socket
+			socketHandler.registerObserver(this);
+			//Start socketHandler in own thread
+			new Thread(socketHandler).start();
+			//TODO set up weightController - remember to register for notifications and make weightcontroller run in own thread
+			
+			
 		} else {
 			System.err.println("No controllers injected!");
-			//TODO handle with some exception?
 		}
 	}
 
@@ -62,7 +60,7 @@ public class DummyMainController implements IMainController, ISocketObserver, IW
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
