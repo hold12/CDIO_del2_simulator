@@ -1,5 +1,10 @@
-package weight;
+package weight.console;
 
+import weight.IWeightInterfaceController;
+import weight.IWeightInterfaceObserver;
+import weight.IWeightInterfaceController.InputType;
+
+@Deprecated
 public class ConsoleWeightInterfaceController implements IWeightInterfaceController{
 
 	@Override

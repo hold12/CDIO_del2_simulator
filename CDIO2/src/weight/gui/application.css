@@ -1,0 +1,38 @@
+.display{
+	-fx-background-color: #000000;
+}
+
+.input {
+	-fx-background-color: #000000;
+	-fx-text-inner-color: #00FF00;
+	-fx-prompt-text-fill: #004400;
+}
+
+.deltaslider1 .thumb{
+ 	-fx-background-image :url("images/delta1.png");   
+	-fx-background-size: 14px;
+	
+}
+
+.deltaslider1 .track{
+	visibility: hidden;
+}
+
+.deltaslider2 .thumb{
+ 	-fx-background-image :url("images/delta2.png");   
+	-fx-background-size: 14px;
+	
+}
+
+.deltaslider2 .track{
+	visibility: hidden;
+}
+
+.connected{
+	-fx-background-image: url("images/connected.png");
+}
+
+.softkey{
+	-fx-background-image: url("images/softkey.png");
+}
+
