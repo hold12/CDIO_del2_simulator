@@ -64,22 +64,22 @@ public class SocketController implements ISocketController {
 				System.out.println(inLine);
 				if (inLine==null) break;
 				 switch (inLine.split(" ")[0]) {
-				case "RM20":
+				case "RM20": // Display a message in the secondary display and wait for response
 					//TODO implement logic for RM command
 					break;
-				case "D":
+				case "D": // Display a message in the primary display
 					//TODO implement
 					break;
-				case "T":
+				case "T": // Tara the weight
 					//TODO implement
 					break;
-				case "S":
+				case "S": // Request the current load
 					//TODO implement
 					break;
-				case "B":
+				case "B": // Set the load
 					//TODO implement
 					break;
-				case "Q":
+				case "Q": // Quit
 					//TODO implement
 					break;
 				default:
