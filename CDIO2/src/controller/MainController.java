@@ -30,9 +30,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void start() {
 		if (socketHandler!=null && weightController!=null){
-			//Make this controller interested in messages from the socket
+			//Makes this controller interested in messages from the socket
 			socketHandler.registerObserver(this);
-			//Start socketHandler in own thread
+			//Starts socketHandler in own thread
 			new Thread(socketHandler).start();
 			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
 			
@@ -53,6 +53,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
 		//TODO implement logic for handling input from ui
+		
 		System.out.println("Got input from UI" + keyPress);
 
 	}

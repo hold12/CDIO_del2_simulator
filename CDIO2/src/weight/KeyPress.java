@@ -6,5 +6,43 @@ package weight;
  *
  */
 public class KeyPress {
-	//TODO some data to store
+	private int keyNumber;
+	private char character;
+	private KeyPressType type;
+	
+	public static KeyPress Tara(){
+		return new KeyPress(0,'\\',KeyPressType.TARA);
+	}
+	
+	public static KeyPress Zero(){
+		return new KeyPress(0,'\\', KeyPressType.ZERO);
+	}
+	
+	public static KeyPress SoftButton(int number){
+		return new KeyPress(number, '\\', KeyPressType.SOFTBUTTON);
+	}
+	
+	public static KeyPress Character(char character){
+		return new KeyPress(0,character,KeyPressType.TEXT);
+	}
+	
+	private KeyPress(int keyNumber, char character, KeyPressType type){
+		this.keyNumber=keyNumber; this.character=character; this.type=type;
+	}
+	
+	public int getKeyNumber() {
+		return keyNumber;
+	}
+
+	public char getCharacter() {
+		return character;
+	}
+
+	public KeyPressType getType() {
+		return type;
+	}
+	
+	public enum KeyPressType{
+		SOFTBUTTON, TEXT, TARA, ZERO
+	}
 }
