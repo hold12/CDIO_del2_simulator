@@ -9,9 +9,11 @@ import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
 
+import socket.SocketInMessage.SocketMessageType;
+
 public class SocketController implements ISocketController {
 	Set<ISocketObserver> observers = new HashSet<ISocketObserver>();
-	// Maybe add some way to keep track of multiple connections?
+	//TODO Maybe add some way to keep track of multiple connections?
 	private BufferedReader inStream;
 	private DataOutputStream outStream;
 	
@@ -68,7 +70,8 @@ public class SocketController implements ISocketController {
 					//TODO implement logic for RM command
 					break;
 				case "D":
-					//TODO implement
+					//TODO Refactor to make sure that faulty messages doesn't break the system
+					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
 					break;
 				case "T":
 					//TODO implement

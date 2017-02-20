@@ -3,7 +3,7 @@ package socket;
 public class SocketOutMessage {
 
 	private String message;
-	//TODO implement
+	//TODO Add more ?
 
 	public SocketOutMessage(String message) {
 		this.message = message;

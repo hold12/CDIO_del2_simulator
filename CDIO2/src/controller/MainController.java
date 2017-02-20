@@ -34,7 +34,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			socketHandler.registerObserver(this);
 			//Start socketHandler in own thread
 			new Thread(socketHandler).start();
-			//TODO set up weightController - remember to register for notifications and make weightcontroller run in own thread
+			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
 			
 			
 		} else {
@@ -46,7 +46,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notify(SocketInMessage message) {
 		//TODO implement logic for handling input from socket
-		System.out.println("Message from Socket received:" + message);
+		System.out.println("Message from Socket received:" + message); //Some dummy code 
 		weightController.showMessagePrimaryDisplay("Message received" + message); //Some dummy code
 	}
 	//Listening for UI input
