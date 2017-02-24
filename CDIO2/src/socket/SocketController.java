@@ -73,6 +73,12 @@ public class SocketController implements ISocketController {
 					//TODO Refactor to make sure that faulty messages doesn't break the system
 					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
 					break;
+				case "DW": //Clear primary display
+					//TODO implement
+					break;
+				case "P111": //Show something in secondary display
+					//TODO implement
+					break;
 				case "T": // Tare the weight
 					//TODO implement
 					break;

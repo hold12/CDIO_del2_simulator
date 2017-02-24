@@ -18,7 +18,7 @@ public class SocketInMessage {
 	}
 	
 	public enum SocketMessageType{
-		RM204, RM208, D, T, S, B, Q
+		RM204, RM208, D, DW, T, S, B, Q, P111
 	}
 
 }
