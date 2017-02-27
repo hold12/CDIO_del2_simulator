@@ -16,8 +16,8 @@ public class SocketController implements ISocketController {
 	//TODO Maybe add some way to keep track of multiple connections?
 	private BufferedReader inStream;
 	private DataOutputStream outStream;
-	
-			
+
+
 	@Override
 	public void registerObserver(ISocketObserver observer) {
 		observers.add(observer);
@@ -48,8 +48,8 @@ public class SocketController implements ISocketController {
 			// TODO Maybe notify MainController?
 			e1.printStackTrace();
 		} 
-		
-		
+
+
 	}
 
 	private void waitForConnections(ServerSocket listeningSocket) {
@@ -65,7 +65,7 @@ public class SocketController implements ISocketController {
 				inLine = inStream.readLine();
 				System.out.println(inLine);
 				if (inLine==null) break;
-				 switch (inLine.split(" ")[0]) {
+				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
 					//TODO implement logic for RM command
 					break;
@@ -85,6 +85,10 @@ public class SocketController implements ISocketController {
 				case "S": // Request the current load
 					//TODO implement
 					break;
+				case "K":
+					if (inLine.split(" ").length>1){
+						notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
+					}
 				case "B": // Set the load
 					//TODO implement
 					break;
@@ -95,13 +99,13 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				}
-			 }
+			}
 		} catch (IOException e) {
 			//TODO maybe notify mainController?
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void notifyObservers(SocketInMessage message) {
 		for (ISocketObserver socketObserver : observers) {
 			socketObserver.notify(message);
