@@ -10,12 +10,20 @@ public class KeyPress {
 	private char character;
 	private KeyPressType type;
 	
-	public static KeyPress Tara(){
-		return new KeyPress(0,'\\',KeyPressType.TARA);
+	public static KeyPress Exit(){
+		return new KeyPress(0,'\\', KeyPressType.EXIT);
 	}
 	
 	public static KeyPress Zero(){
 		return new KeyPress(0,'\\', KeyPressType.ZERO);
+	}
+	
+	public static KeyPress Tara(){
+		return new KeyPress(0,'\\',KeyPressType.TARA);
+	}
+	
+	public static KeyPress Send(){
+		return new KeyPress(0,'\\', KeyPressType.SEND);
 	}
 	
 	public static KeyPress SoftButton(int number){
@@ -43,6 +51,6 @@ public class KeyPress {
 	}
 	
 	public enum KeyPressType{
-		SOFTBUTTON, TEXT, TARA, ZERO
+		SOFTBUTTON, TEXT, EXIT, ZERO, TARA, SEND, C	
 	}
 }

@@ -26,7 +26,7 @@ public class FxApp extends Application {
 	private Text[] txtinfo = new Text[4];
 	private TextField userInput;
 	private Slider slider;
-	private Button btnzero, btntara, btnshift; 
+	private Button btnexit, btnzero, btntara, btnsend, btnshift; 
 	private Button[] btnsft = new Button[6];
 	private Button[] btnnum = new Button[10];
 	public static final String[] str_lower = {".", "abc", "def", "ghi", "jkl", "mno", "pqr", "stu", "vxy", "z"};
@@ -108,9 +108,24 @@ public class FxApp extends Application {
 				}
 			});
 
+			btnexit = (Button) loader.getNamespace().get("btn_exit");
+			btnexit.setOnAction(new EventHandler<ActionEvent>() { 
+				@Override public void handle(ActionEvent event) { onExitButtonPressed(); }
+			});
+			
+			btnzero = (Button) loader.getNamespace().get("btn_zero");
+			btnzero.setOnAction(new EventHandler<ActionEvent>() { 
+				@Override public void handle(ActionEvent event) { onZeroButtonPressed(); }
+			});
+			
 			btntara = (Button) loader.getNamespace().get("btn_tara");
 			btntara.setOnAction(new EventHandler<ActionEvent>() { 
 				@Override public void handle(ActionEvent event) { onTaraButtonPressed(); }
+			});
+			
+			btnsend = (Button) loader.getNamespace().get("btn_send");
+			btnsend.setOnAction(new EventHandler<ActionEvent>() { 
+				@Override public void handle(ActionEvent event) { onSendButtonPressed(); }
 			});
 			
 			final FxAppInputBtnHandler inputHandler = new FxAppInputBtnHandler();
@@ -148,8 +163,10 @@ public class FxApp extends Application {
 
 	//output
 	private void onSliderValueChange(Double newValue){ l.onSliderValueChange(newValue); }
-	private void onTaraButtonPressed(){ l.onTaraButtonPressed(); }
+	private void onExitButtonPressed(){ l.onExitButtonPressed(); }
 	private void onZeroButtonPressed(){ l.onZeroButtonPressed(); }
+	private void onTaraButtonPressed(){ l.onTaraButtonPressed(); }
+	private void onSendButtonPressed(){ l.onSendButtonPressed(); }
 	private void onNumBtnPressed(final FxAppInputBtnHandler inputHandler, final int btn) {
 		char c = inputHandler.onButtonPressed(btn, inputType, DELAY);
 		if(timer == null) timer = new Timer();

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
+import weight.KeyPress;
 
 public class WeightGUI implements IWeightInterfaceController {
 	private static WeightGUI instance;
@@ -56,54 +57,40 @@ public class WeightGUI implements IWeightInterfaceController {
 	
 	
 	// GUI --> System
-	public void onSliderValueChange(Double newValue) {
+	void onSliderValueChange(Double newValue) {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyWeightChange(newValue / 1000);
 		}
-		
 	}
-	public void onTaraButtonPressed() {
+	void onExitButtonPressed() {
 		for (IWeightInterfaceObserver o : observers) {
-			//TODO implement KeyPress
-			o.notifyKeyPress(null);
+			o.notifyKeyPress(KeyPress.Exit());
+		}
+	}
+	void onZeroButtonPressed() {
+		for (IWeightInterfaceObserver o : observers) {
+			o.notifyKeyPress(KeyPress.Zero());
+		}
+	}
+	void onTaraButtonPressed() {
+		for (IWeightInterfaceObserver o : observers) {
+			o.notifyKeyPress(KeyPress.Tara());
 		}
 		
 	}
-	public void onZeroButtonPressed() {
+	void onSendButtonPressed() {
 		for (IWeightInterfaceObserver o : observers) {
-			//TODO implement Keypress
-			o.notifyKeyPress(null);
+			o.notifyKeyPress(KeyPress.Send());
 		}
 	}
-	public void onNumBtnPressed(char btn){
+	void onNumBtnPressed(char btn){
 		for (IWeightInterfaceObserver o : observers) {
-			//TODO implement KeyPress
-			o.notifyKeyPress(null);
+			o.notifyKeyPress(KeyPress.Character(btn));
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
+	void onSoftBtnPressed(int i) {
+		for (IWeightInterfaceObserver o : observers) {
+			o.notifyKeyPress(KeyPress.SoftButton(i));
+		}
+	}
 }
