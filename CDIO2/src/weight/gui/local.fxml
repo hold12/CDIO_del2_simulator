@@ -235,17 +235,22 @@
                            <children>
                               <Button fx:id="btn_exit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" stylesheets="@application.css" text="Exit" textAlignment="CENTER" textOverrun="CLIP">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="50.0" right="25.0" />
                                  </HBox.margin>
                               </Button>
                               <Button fx:id="btn_zero" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" stylesheets="@application.css" text="Zero" textAlignment="CENTER" textOverrun="CLIP" HBox.hgrow="NEVER">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="25.0" right="25.0" />
                                  </HBox.margin>
                               </Button>
                               <Button fx:id="btn_tara" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" stylesheets="@application.css" text="Tara" textAlignment="CENTER" textOverrun="CLIP">
                                  <HBox.margin>
-                                    <Insets left="50.0" right="50.0" />
+                                    <Insets left="25.0" right="25.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="btn_send" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" stylesheets="@application.css" text="[-&gt;" textAlignment="CENTER" textOverrun="CLIP">
+                                 <HBox.margin>
+                                    <Insets left="25.0" right="50.0" />
                                  </HBox.margin>
                               </Button>
                            </children>

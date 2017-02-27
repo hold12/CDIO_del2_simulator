@@ -190,7 +190,7 @@ public class FxApp extends Application {
 		userInput.positionCaret(caretPosition);
 	}
 	private void onSoftKeyPressed(int i){
-		
+		l.onSoftBtnPressed(i);
 	}
 
 	//input
