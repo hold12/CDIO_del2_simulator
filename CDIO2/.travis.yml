@@ -1,0 +1,10 @@
+language: java
+jdk:
+- oraclejdk8
+
+notifications:
+  email:
+    recipients:
+      - anders@wiberg.tech
+    on_success: never   # default: change  [always|never|change]
+    on_failure: change  # default: always  [always|never|change]
