@@ -36,6 +36,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			socketHandler.registerObserver(this);
 			//Starts socketHandler in own thread
 			new Thread(socketHandler).start();
+
+			weightController.registerObserver(this);
+			new Thread(weightController).start();
 			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
 
 
@@ -47,6 +50,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for socket input
 	@Override
 	public void notify(SocketInMessage message) {
+		System.out.println(message);
 		switch (message.getType()) {
 		case B:
 			break;
@@ -96,6 +100,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
+		System.out.println(keyPress);
 		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
