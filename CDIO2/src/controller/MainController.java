@@ -39,8 +39,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 			weightController.registerObserver(this);
 			new Thread(weightController).start();
-			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
-
 
 		} else {
 			System.err.println("No controllers injected!");
@@ -62,6 +60,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case RM204:
 			break;
 		case RM208:
+			weightController.showMessageSecondaryDisplay(message.getMessage());
 			break;
 		case S:
 			break;
@@ -100,7 +99,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
-		System.out.println(keyPress);
+		System.out.println(keyPress.getCharacter());
 		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
@@ -108,12 +107,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case TARA:
 			break;
 		case TEXT:
+		    weightController.showMessagePrimaryDisplay("" + keyPress.getCharacter());
 			break;
 		case ZERO:
 			break;
 		case C:
 			break;
 		case EXIT:
+		    System.exit(0);
 			break;
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){

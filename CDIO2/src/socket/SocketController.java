@@ -67,7 +67,8 @@ public class SocketController implements ISocketController {
 				if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
-					//TODO implement logic for RM command
+                    notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(7)));
+                    //TODO implement logic for RM command
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system
