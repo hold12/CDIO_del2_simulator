@@ -43,7 +43,6 @@
         <batchtest>
             <fileset dir="${test.src.dir}">
                 <include name="**/*Test*.java"/>
-                <exclude name="**/BusinessTest.java"/>
             </fileset>
         </batchtest>
     </junit>
