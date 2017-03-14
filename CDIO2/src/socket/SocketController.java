@@ -71,11 +71,12 @@ public class SocketController implements ISocketController {
 				if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
-					notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.substring(7)));
+					if (inLine.split(" ")[1].equals("8"))
+						notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.substring(7)));
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system
-					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
+					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(2)));
 					break;
 				case "DW": //Clear primary display
 					//TODO implement

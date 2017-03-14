@@ -51,19 +51,36 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case B:
 			break;
 		case D:
-			weightController.showMessagePrimaryDisplay(message.getMessage()); 
-			break;
+            weightController.showMessagePrimaryDisplay(message.getMessage());
+            break;
 		case Q:
 			break;
 		case RM204:
 			break;
 		case RM208:
             String[] messageArray = message.getMessage().split("\" \"");
-            messageArray[0] = messageArray[0].substring(1);
-            messageArray[2] = messageArray[2].substring(0,messageArray[2].length()-1);
+            String text1 = messageArray[0].substring(1);
+            String text2 = messageArray[1];
+            String text3 = messageArray[2].substring(0,messageArray[2].length()-1);
+
+            //Numeric entry
+            if (text3.startsWith("&")) {
+                switch (text3.substring(0, 2)) {
+                    case "&1":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.UPPER);
+                        break;
+                    case "&2":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.LOWER);
+                        break;
+                    case "&3":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.NUMBERS);
+                        break;
+                }
+                text3 = text3.substring(2);
+            }
             //show message to user
-            weightController.showMessageSecondaryDisplay(messageArray[0]);
-            weightController.showMessagePrimaryDisplay(messageArray[1] + " " + messageArray[2] + "\n");
+            weightController.showMessageSecondaryDisplay(text1);
+            weightController.showMessagePrimaryDisplay(text2 + " " + text3 + "\n");
             socketHandler.sendMessage(new SocketOutMessage("RM20 B\n"));
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
@@ -82,7 +99,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	}
 
-	private void handleKMessage(SocketInMessage message) {
+    private void handleKMessage(SocketInMessage message) {
 		switch (message.getMessage()) {
 		case "1" :
 			this.keyState = KeyState.K1;
@@ -130,6 +147,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			}
 			if(currentState == SocketInMessage.SocketMessageType.RM208)
                 socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
+
+			currentState = null;
             break;
 		}
 	}
