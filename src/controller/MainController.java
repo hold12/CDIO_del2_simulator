@@ -97,6 +97,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case DW:
+			this.tareWeight = 0;
+			this.grossWeight = 0;
+			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
+			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
 			handleKMessage(message);
@@ -144,6 +148,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
+            this.tareWeight = 0;
+            this.grossWeight = 0;
+            weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case C:
 			break;
