@@ -19,6 +19,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
 	private double grossWeight, tara = 0;
+	private String keysPressed = "";
+	private SocketInMessage.SocketMessageType currentState;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -40,6 +42,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 			weightController.registerObserver(this);
 			new Thread(weightController).start();
+
 		} else {
 			System.err.println("No controllers injected!");
 		}
@@ -48,7 +51,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for socket input
 	@Override
 	public void notify(SocketInMessage message) {
-		System.out.println(message);
 		switch (message.getType()) {
 		case B:
 			break;
@@ -60,7 +62,32 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case RM204:
 			break;
 		case RM208:
-			break;
+            String[] messageArray = message.getMessage().split("\" \"");
+            String text1 = messageArray[0].substring(1);
+            String text2 = messageArray[1];
+            String text3 = messageArray[2].substring(0,messageArray[2].length()-1);
+
+            //Numeric entry
+            if (text3.startsWith("&")) {
+                switch (text3.substring(0, 2)) {
+                    case "&1":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.UPPER);
+                        break;
+                    case "&2":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.LOWER);
+                        break;
+                    case "&3":
+                        weightController.changeInputType(IWeightInterfaceController.InputType.NUMBERS);
+                        break;
+                }
+                text3 = text3.substring(2);
+            }
+            //show message to user
+            weightController.showMessageSecondaryDisplay(text1);
+            weightController.showMessagePrimaryDisplay(text2 + text3);
+            socketHandler.sendMessage(new SocketOutMessage(" RM20 B\r\n"));
+            currentState = SocketInMessage.SocketMessageType.RM208;
+            break;
 		case S:
 			break;
 		case T:
@@ -101,7 +128,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
-		System.out.println(keyPress);
+		System.out.println(keyPress.getCharacter());
 		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
@@ -112,6 +139,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case TEXT:
+            keysPressed+=keyPress.getCharacter();
+		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
 			break;
@@ -123,7 +152,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
-			break;
+			if(currentState == SocketInMessage.SocketMessageType.RM208) {
+				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\r\n"));
+			}
+			currentState = null;
+			keysPressed = "";
+            break;
 		}
 	}
 
