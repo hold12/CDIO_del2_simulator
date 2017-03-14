@@ -18,6 +18,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
+	private double bruttoWeight, tara = 0;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -126,8 +127,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
-		// TODO Auto-generated method stub
-
+		bruttoWeight = newWeight;
+		weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight - tara) + "kg");
 	}
 
 }
