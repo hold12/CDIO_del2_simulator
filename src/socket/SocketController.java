@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
@@ -31,12 +32,10 @@ public class SocketController implements ISocketController {
 	@Override
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
-			try {
-				outStream.writeChars(message.getMessage());
-				outStream.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			PrintWriter writer = new PrintWriter(outStream);
+			writer.println(message.getMessage());
+			writer.flush();
+
 		} else {
 			//TODO maybe tell someone that connection is closed?
 		}
@@ -86,10 +85,10 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "T": // Tare the weight
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
 					break;
 				case "S": // Request the current load
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.S, ""));
 					break;
 				case "K":
 					if (inLine.split(" ").length>1){

@@ -18,6 +18,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
+	private double grossWeight, tareWeight = 0;
 	private String keysPressed = "";
 	private SocketInMessage.SocketMessageType currentState;
 
@@ -90,8 +91,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
+		    socketHandler.sendMessage(new SocketOutMessage("S S      " + String.format("%.3f", grossWeight - tareWeight) + " kg"));
 			break;
 		case T:
+			this.tareWeight = this.grossWeight;
+			this.grossWeight = 0;
+			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case DW:
 			break;
@@ -132,6 +137,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
+            this.tareWeight = this.grossWeight;
+            this.grossWeight = 0;
+		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case TEXT:
             keysPressed+=keyPress.getCharacter();
@@ -158,8 +166,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
-		// TODO Auto-generated method stub
-
+		grossWeight = newWeight;
+		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
 	}
 
 }
