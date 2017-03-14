@@ -64,7 +64,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case S:
 			break;
 		case T:
-			weightController.showMessagePrimaryDisplay("0.0000 kg");
+			this.tara = this.bruttoWeight;
+			this.bruttoWeight = 0;
+			weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight) + "kg");
 			break;
 		case DW:
 			break;
@@ -105,7 +107,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
-		    weightController.showMessagePrimaryDisplay("0.0000 kg");
+            this.tara = this.bruttoWeight;
+            this.bruttoWeight = 0;
+		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight) + "kg");
 			break;
 		case TEXT:
 			break;
