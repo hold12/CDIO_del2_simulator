@@ -86,10 +86,10 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "T": // Tare the weight
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
 					break;
 				case "S": // Request the current load
-					//TODO implement
+					
 					break;
 				case "K":
 					if (inLine.split(" ").length>1){
