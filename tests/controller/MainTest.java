@@ -1,11 +1,11 @@
 package controller;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.TestCase.assertTrue;
 
 /**
- * Created by AndersWOlsen on 13-03-2017.
+ * Main method test
  */
 class MainTest {
     @Test
