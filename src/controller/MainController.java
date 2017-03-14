@@ -39,9 +39,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 			weightController.registerObserver(this);
 			new Thread(weightController).start();
-			//TODO set up weightController - Look above for inspiration (Keep it simple ;))
-
-
 		} else {
 			System.err.println("No controllers injected!");
 		}
@@ -66,6 +63,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case S:
 			break;
 		case T:
+			weightController.showMessagePrimaryDisplay("0.0000 kg");
 			break;
 		case DW:
 			break;
@@ -106,6 +104,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
+		    weightController.showMessagePrimaryDisplay("0.0000 kg");
 			break;
 		case TEXT:
 			break;
@@ -121,7 +120,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			}
 			break;
 		}
-
 	}
 
 	@Override
