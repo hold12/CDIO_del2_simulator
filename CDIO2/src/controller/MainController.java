@@ -16,6 +16,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
 	private String keysPressed = "";
+	private SocketInMessage.SocketMessageType currentState;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -46,10 +47,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for socket input
 	@Override
 	public void notify(SocketInMessage message) {
-		System.out.println(message);
-		String[] messageArray = message.getMessage().split("\" \"");
-		messageArray[0] = messageArray[0].substring(1);
-        messageArray[2] = messageArray[2].substring(0,messageArray[2].length()-1);
 		switch (message.getType()) {
 		case B:
 			break;
@@ -61,10 +58,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case RM204:
 			break;
 		case RM208:
+            String[] messageArray = message.getMessage().split("\" \"");
+            messageArray[0] = messageArray[0].substring(1);
+            messageArray[2] = messageArray[2].substring(0,messageArray[2].length()-1);
             //show message to user
             weightController.showMessageSecondaryDisplay(messageArray[0]);
             weightController.showMessagePrimaryDisplay(messageArray[1] + " " + messageArray[2] + "\n");
-            socketHandler.sendMessage(new SocketOutMessage("RM20 B"));
+            socketHandler.sendMessage(new SocketOutMessage("RM20 B\n"));
+            currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
 			break;
@@ -127,10 +128,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
-            socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\n"));
+			if(currentState == SocketInMessage.SocketMessageType.RM208)
+                socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
             break;
 		}
-
 	}
 
 	@Override
