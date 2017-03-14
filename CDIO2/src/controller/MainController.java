@@ -80,8 +80,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             }
             //show message to user
             weightController.showMessageSecondaryDisplay(text1);
-            weightController.showMessagePrimaryDisplay(text2 + " " + text3 + "\n");
-            socketHandler.sendMessage(new SocketOutMessage("RM20 B\n"));
+            weightController.showMessagePrimaryDisplay(text2 + text3);
+            socketHandler.sendMessage(new SocketOutMessage(" RM20 B\r\n"));
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
@@ -145,10 +145,11 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
-			if(currentState == SocketInMessage.SocketMessageType.RM208)
-                socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
-
+			if(currentState == SocketInMessage.SocketMessageType.RM208) {
+				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\r\n"));
+			}
 			currentState = null;
+			keysPressed = "";
             break;
 		}
 	}

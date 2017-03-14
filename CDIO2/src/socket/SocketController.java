@@ -33,6 +33,7 @@ public class SocketController implements ISocketController {
 		if (outStream!=null){
 			try {
 				outStream.writeUTF(message.getMessage());
+				outStream.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
