@@ -7,9 +7,9 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Main method test
  */
-class MainTest {
+public class MainTest {
     @Test
-    void main() {
+    public void main() {
         assertTrue(true);
     }
 
