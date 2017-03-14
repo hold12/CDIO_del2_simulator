@@ -1,9 +1,6 @@
 package socket;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
@@ -31,7 +28,11 @@ public class SocketController implements ISocketController {
 	@Override
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
-			//TODO send something over the socket! 
+			//TODO send something over the socket!
+			PrintWriter writer = new PrintWriter(outStream);
+			writer.println(message.getMessage());
+			writer.flush();
+
 		} else {
 			//TODO maybe tell someone that connection is closed?
 		}
@@ -83,7 +84,7 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "S": // Request the current load
-					
+					notifyObservers(new SocketInMessage(SocketMessageType.S, ""));
 					break;
 				case "K":
 					if (inLine.split(" ").length>1){
