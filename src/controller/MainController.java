@@ -18,7 +18,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
-	private double bruttoWeight, tara = 0;
+	private double grossWeight, tara = 0;
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -64,9 +64,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case S:
 			break;
 		case T:
-			this.tara = this.bruttoWeight;
-			this.bruttoWeight = 0;
-			weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight) + "kg");
+			this.tara = this.grossWeight;
+			this.grossWeight = 0;
+			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case DW:
 			break;
@@ -107,9 +107,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
-            this.tara = this.bruttoWeight;
-            this.bruttoWeight = 0;
-		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight) + "kg");
+            this.tara = this.grossWeight;
+            this.grossWeight = 0;
+		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case TEXT:
 			break;
@@ -129,8 +129,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 
 	@Override
 	public void notifyWeightChange(double newWeight) {
-		bruttoWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , bruttoWeight - tara) + "kg");
+		grossWeight = newWeight;
+		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tara) + "kg");
 	}
 
 }
