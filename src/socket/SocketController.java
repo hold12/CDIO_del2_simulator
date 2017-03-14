@@ -32,7 +32,7 @@ public class SocketController implements ISocketController {
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
 			try {
-				outStream.writeUTF(message.getMessage());
+				outStream.writeChars(message.getMessage());
 				outStream.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -77,7 +77,7 @@ public class SocketController implements ISocketController {
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system
-					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.split(" ")[1])); 			
+					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(2)));
 					break;
 				case "DW": //Clear primary display
 					//TODO implement
