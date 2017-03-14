@@ -31,7 +31,11 @@ public class SocketController implements ISocketController {
 	@Override
 	public void sendMessage(SocketOutMessage message) {
 		if (outStream!=null){
-			//TODO send something over the socket! 
+			try {
+				outStream.writeUTF(message.getMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else {
 			//TODO maybe tell someone that connection is closed?
 		}
@@ -67,8 +71,7 @@ public class SocketController implements ISocketController {
 				if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
-                    notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(7)));
-                    //TODO implement logic for RM command
+					notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.substring(7)));
 					break;
 				case "D":// Display a message in the primary display
 					//TODO Refactor to make sure that faulty messages doesn't break the system

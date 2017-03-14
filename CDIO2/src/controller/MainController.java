@@ -1,9 +1,6 @@
 package controller;
 
-import socket.ISocketController;
-import socket.ISocketObserver;
-import socket.SocketInMessage;
-import socket.SocketOutMessage;
+import socket.*;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
@@ -18,6 +15,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private ISocketController socketHandler;
 	private IWeightInterfaceController weightController;
 	private KeyState keyState = KeyState.K1;
+	private String keysPressed = "";
 
 	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
 		this.init(socketHandler, uiController);
@@ -49,6 +47,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notify(SocketInMessage message) {
 		System.out.println(message);
+		String[] messageArray = message.getMessage().split("\" \"");
+		messageArray[0] = messageArray[0].substring(1);
+        messageArray[2] = messageArray[2].substring(0,messageArray[2].length()-1);
 		switch (message.getType()) {
 		case B:
 			break;
@@ -60,8 +61,11 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case RM204:
 			break;
 		case RM208:
-			weightController.showMessageSecondaryDisplay(message.getMessage());
-			break;
+            //show message to user
+            weightController.showMessageSecondaryDisplay(messageArray[0]);
+            weightController.showMessagePrimaryDisplay(messageArray[1] + " " + messageArray[2] + "\n");
+            socketHandler.sendMessage(new SocketOutMessage("RM20 B"));
+            break;
 		case S:
 			break;
 		case T:
@@ -107,11 +111,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case TARA:
 			break;
 		case TEXT:
-		    weightController.showMessagePrimaryDisplay("" + keyPress.getCharacter());
+            keysPressed+=keyPress.getCharacter();
+		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
 			break;
 		case C:
+		    keysPressed = "";
+		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case EXIT:
 		    System.exit(0);
@@ -120,7 +127,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
-			break;
+            socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\n"));
+            break;
 		}
 
 	}
