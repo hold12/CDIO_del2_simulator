@@ -83,7 +83,7 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "S": // Request the current load
-					//TODO implement
+					
 					break;
 				case "K":
 					if (inLine.split(" ").length>1){
