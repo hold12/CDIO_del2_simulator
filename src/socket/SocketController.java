@@ -82,7 +82,8 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "P111": //Show something in secondary display
-					//TODO implement
+					if(inLine.substring(5).length() <= 30 && inLine.length() != 0)
+						notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));
 					break;
 				case "T": // Tare the weight
 					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
