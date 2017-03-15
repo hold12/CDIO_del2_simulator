@@ -4,6 +4,7 @@ import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
+import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
@@ -53,6 +54,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage().substring(2)));
 			break;
 		case D:
 			weightController.showMessagePrimaryDisplay(message.getMessage()); 
@@ -102,6 +104,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			handleKMessage(message);
 			break;
 		case P111:
+			weightController.showMessageSecondaryDisplay(message.getMessage());
+			socketHandler.sendMessage(new SocketOutMessage("P111 A"));
 			break;
 		}
 
