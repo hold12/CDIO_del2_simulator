@@ -57,7 +57,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
-			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage().substring(2)));
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage()));
 			break;
 		case D:
 			String text = message.getMessage().substring(1,message.getMessage().length()-1);
