@@ -55,7 +55,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case B:
 			break;
 		case D:
-			weightController.showMessagePrimaryDisplay(message.getMessage()); 
+			String text = message.getMessage().substring(1,message.getMessage().length()-1);
+			weightController.showMessagePrimaryDisplay(text);
+			socketHandler.sendMessage(new SocketOutMessage("D A\r\n"));
 			break;
 		case Q:
 			System.exit(0);
@@ -86,7 +88,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             //show message to user
             weightController.showMessageSecondaryDisplay(text1);
             weightController.showMessagePrimaryDisplay(text2 + text3);
-            socketHandler.sendMessage(new SocketOutMessage("RM20 B\r"));
+            socketHandler.sendMessage(new SocketOutMessage("RM20 B\r\n"));
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
@@ -103,6 +105,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			handleKMessage(message);
 			break;
 		case P111:
+			String P111text = message.getMessage().substring(1,message.getMessage().length()-1);
+			if (P111text.length() > 30)
+				P111text = P111text.substring(0,30);
+			weightController.showMessageSecondaryDisplay(P111text);
 			break;
 		}
 
