@@ -8,6 +8,9 @@ import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
+
+import java.util.Locale;
+
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz
@@ -175,7 +178,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight - tareWeight) + " kg");
 	}
 
 }
