@@ -75,7 +75,7 @@ public class SocketController implements ISocketController {
 					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(2)));
 					break;
 				case "DW": //Clear primary display
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.DW, ""));
 					break;
 				case "P111": //Show something in secondary display
 					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));//Only 30 characters
