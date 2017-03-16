@@ -7,6 +7,9 @@ import socket.SocketOutMessage;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
+
+import java.util.Locale;
+
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz
@@ -99,7 +102,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case DW:
 			this.tareWeight = 0;
 			this.grossWeight = 0;
-			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
+			weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight) + " kg");
 			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
