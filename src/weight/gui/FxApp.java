@@ -34,7 +34,7 @@ public class FxApp extends Application {
 	private InputType inputType = InputType.NUMBERS;
 	private boolean userInputPlaceholderTentative = false, userInputTypeLocked = false;
 	private int caretPosition = 0;
-	private WeightGUI l;
+	private WeightInterfaceControllerGUI l;
 	private Timer timer; 
 	final int DELAY = 333;
 
@@ -152,11 +152,11 @@ public class FxApp extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		WeightGUI.getInstance().setApp(this);
+		WeightInterfaceControllerGUI.getInstance().setApp(this);
 	}
 	public FxApp() {} 
 
-	public void setSim(WeightGUI l){
+	public void setSim(WeightInterfaceControllerGUI l){
 		this.l = l;
 	}
 
