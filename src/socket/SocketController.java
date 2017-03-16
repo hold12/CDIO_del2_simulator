@@ -82,7 +82,7 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "P111": //Show something in secondary display
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));//Only 30 characters
 					break;
 				case "T": // Tare the weight
 					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));

@@ -104,6 +104,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			handleKMessage(message);
 			break;
 		case P111:
+			String P111text = message.getMessage().substring(1,message.getMessage().length()-1);
+			if (P111text.length() > 30)
+				P111text = P111text.substring(0,30);
+			weightController.showMessageSecondaryDisplay(P111text);
 			break;
 		}
 
