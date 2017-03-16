@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import socket.SocketInMessage.SocketMessageType;
+import sun.misc.FloatingDecimal;
 
 public class SocketController implements ISocketController {
 	Set<ISocketObserver> observers = new HashSet<ISocketObserver>();
@@ -96,10 +97,10 @@ public class SocketController implements ISocketController {
 					}
 					break;
 				case "B": // Set the load
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.B, inLine));
 					break;
 				case "Q": // Quit
-					//TODO implement
+                    notifyObservers(new SocketInMessage(SocketMessageType.Q, ""));
 					break;
 				default: //Something went wrong?
 					//TODO implement
