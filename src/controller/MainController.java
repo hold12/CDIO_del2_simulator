@@ -101,13 +101,11 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		case T:
 			this.tareWeight = this.grossWeight;
-			this.grossWeight = 0;
-			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
+			notifyWeightChange(grossWeight);
 			break;
 		case DW:
 			this.tareWeight = 0;
-			this.grossWeight = 0;
-			weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight) + "kg");
+			notifyWeightChange(0);
 			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
@@ -154,8 +152,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		case TARA:
             this.tareWeight = this.grossWeight;
-            this.grossWeight = 0;
-		    weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
+            notifyWeightChange(grossWeight);
 			break;
 		case TEXT:
             keysPressed+=keyPress.getCharacter();
@@ -163,8 +160,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		case ZERO:
             this.tareWeight = 0;
-            this.grossWeight = 0;
-            weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
+			notifyWeightChange(0);
 			break;
 		case CANCEL:
 			break;
