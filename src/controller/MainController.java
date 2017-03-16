@@ -4,9 +4,13 @@ import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
+import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
+
+import java.util.Locale;
+
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz
@@ -22,14 +26,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private String keysPressed = "";
 	private SocketInMessage.SocketMessageType currentState;
 
-	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
-		this.init(socketHandler, uiController);
+	public MainController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
+		this.init(socketHandler, weightInterfaceController);
 	}
 
 	@Override
-	public void init(ISocketController socketHandler, IWeightInterfaceController uiController) {
+	public void init(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.socketHandler = socketHandler;
-		this.weightController=uiController;
+		this.weightController=weightInterfaceController;
 	}
 
 	@Override
@@ -53,6 +57,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage()));
 			break;
 		case D:
 			String text = message.getMessage().substring(1,message.getMessage().length()-1);
@@ -100,6 +105,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
 		case DW:
+			this.tareWeight = 0;
+			this.grossWeight = 0;
+			weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight) + "kg");
+			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
 			handleKMessage(message);
@@ -109,6 +118,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (P111text.length() > 30)
 				P111text = P111text.substring(0,30);
 			weightController.showMessageSecondaryDisplay(P111text);
+			socketHandler.sendMessage(new SocketOutMessage("P111 A"));
 			break;
 		}
 
@@ -133,6 +143,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		}
 	}
+
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
@@ -151,8 +162,11 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
+            this.tareWeight = 0;
+            this.grossWeight = 0;
+            weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
-		case C:
+		case CANCEL:
 			break;
 		case EXIT:
 			System.exit(0);
@@ -173,7 +187,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight - tareWeight) + "kg");
 	}
 
 }
