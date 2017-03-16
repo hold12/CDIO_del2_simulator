@@ -151,11 +151,6 @@ public class FxApp extends Application {
 			btncancel.setOnAction(new EventHandler<ActionEvent>() { 
 				@Override public void handle(ActionEvent event) { onCancelButtonPressed(); }
 			});
-
-			btnexit = (Button) loader.getNamespace().get("btn_Exit");
-			btnexit.setOnAction(new EventHandler<ActionEvent>() {
-				@Override public void handle(ActionEvent event) { onExitButtonPressed(); }
-			});
 			
 			primaryStage.setScene(scene);
 			primaryStage.show();
