@@ -95,9 +95,8 @@ public class SocketController implements ISocketController {
 					notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.substring(2)));
 					break;
 				case "Q": // Quit
-					//TODO implement
 					activeSocket.close();
-				    System.exit(0);
+					notifyObservers(new SocketInMessage(SocketMessageType.Q,null));
 					break;
 				default: //Something went wrong?
 					//TODO implement
