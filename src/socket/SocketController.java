@@ -1,16 +1,12 @@
 package socket;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import socket.SocketInMessage.SocketMessageType;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashSet;
 import java.util.Set;
-
-import socket.SocketInMessage.SocketMessageType;
 
 public class SocketController implements ISocketController {
 	Set<ISocketObserver> observers = new HashSet<ISocketObserver>();
@@ -44,14 +40,14 @@ public class SocketController implements ISocketController {
 	@Override
 	public void run() {
 		//TODO some logic for listening to a socket //(Using try with resources for auto-close of socket)
-		try (ServerSocket listeningSocket = new ServerSocket(Port)){ 
+		try (ServerSocket listeningSocket = new ServerSocket(Port)){
 			while (true){
-				waitForConnections(listeningSocket); 	
-			}		
+				waitForConnections(listeningSocket);
+			}
 		} catch (IOException e1) {
 			// TODO Maybe notify MainController?
 			e1.printStackTrace();
-		} 
+		}
 
 
 	}
@@ -62,7 +58,7 @@ public class SocketController implements ISocketController {
 			inStream = new BufferedReader(new InputStreamReader(activeSocket.getInputStream()));
 			outStream = new DataOutputStream(activeSocket.getOutputStream());
 			String inLine;
-			//.readLine is a blocking call 
+			//.readLine is a blocking call
 			//TODO How do you handle simultaneous input and output on socket?
 			//TODO this only allows for one open connection - how would you handle multiple connections?
 			while (true){
@@ -82,7 +78,7 @@ public class SocketController implements ISocketController {
 					notifyObservers(new SocketInMessage(SocketMessageType.DW, ""));
 					break;
 				case "P111": //Show something in secondary display
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));//Only 30 characters
 					break;
 				case "T": // Tare the weight
 					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
@@ -96,10 +92,12 @@ public class SocketController implements ISocketController {
 					}
 					break;
 				case "B": // Set the load
-					//TODO implement
+					notifyObservers(new SocketInMessage(SocketMessageType.B, inLine.substring(2)));
 					break;
 				case "Q": // Quit
 					//TODO implement
+					activeSocket.close();
+				    System.exit(0);
 					break;
 				default: //Something went wrong?
 					//TODO implement

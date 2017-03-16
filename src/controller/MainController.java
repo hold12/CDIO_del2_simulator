@@ -4,6 +4,7 @@ import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
+import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
@@ -56,13 +57,15 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage()));
 			break;
 		case D:
 			String text = message.getMessage().substring(1,message.getMessage().length()-1);
 			weightController.showMessagePrimaryDisplay(text);
-			socketHandler.sendMessage(new SocketOutMessage("D A\r\n"));
+			socketHandler.sendMessage(new SocketOutMessage("D A"));
 			break;
 		case Q:
+			System.exit(0);
 			break;
 		case RM204:
 			break;
@@ -90,7 +93,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             //show message to user
             weightController.showMessageSecondaryDisplay(text1);
             weightController.showMessagePrimaryDisplay(text2 + text3);
-            socketHandler.sendMessage(new SocketOutMessage("RM20 B\r\n"));
+            socketHandler.sendMessage(new SocketOutMessage("RM20 B"));
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
@@ -111,6 +114,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			handleKMessage(message);
 			break;
 		case P111:
+			String P111text = message.getMessage().substring(1,message.getMessage().length()-1);
+			if (P111text.length() > 30)
+				P111text = P111text.substring(0,30);
+			weightController.showMessageSecondaryDisplay(P111text);
 			break;
 		}
 
@@ -160,13 +167,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case C:
 			break;
 		case EXIT:
+			System.exit(0);
 			break;
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
 			if(currentState == SocketInMessage.SocketMessageType.RM208) {
-				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\r\n"));
+				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
 			}
 			currentState = null;
 			keysPressed = "";
@@ -177,7 +185,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight - tareWeight) + " kg");
 	}
 
 }
