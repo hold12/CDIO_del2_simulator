@@ -40,7 +40,7 @@ public class SocketController implements ISocketController {
 	@Override
 	public void run() {
 		//TODO some logic for listening to a socket //(Using try with resources for auto-close of socket)
-		try (ServerSocket listeningSocket = new ServerSocket(Port)){
+ 		try (ServerSocket listeningSocket = new ServerSocket(Port)){
 			while (true){
 				waitForConnections(listeningSocket);
 			}

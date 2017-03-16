@@ -26,14 +26,14 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	private String keysPressed = "";
 	private SocketInMessage.SocketMessageType currentState;
 
-	public MainController(ISocketController socketHandler, IWeightInterfaceController uiController) {
-		this.init(socketHandler, uiController);
+	public MainController(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
+		this.init(socketHandler, weightInterfaceController);
 	}
 
 	@Override
-	public void init(ISocketController socketHandler, IWeightInterfaceController uiController) {
+	public void init(ISocketController socketHandler, IWeightInterfaceController weightInterfaceController) {
 		this.socketHandler = socketHandler;
-		this.weightController=uiController;
+		this.weightController=weightInterfaceController;
 	}
 
 	@Override
@@ -143,6 +143,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		}
 	}
+
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
@@ -165,7 +166,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             this.grossWeight = 0;
             weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight) + "kg");
 			break;
-		case C:
+		case CANCEL:
 			break;
 		case EXIT:
 			System.exit(0);

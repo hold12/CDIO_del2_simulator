@@ -7,14 +7,14 @@ import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
 
-public class WeightGUI implements IWeightInterfaceController {
-	private static WeightGUI instance;
+public class WeightInterfaceControllerGUI implements IWeightInterfaceController {
+	private static WeightInterfaceControllerGUI instance;
 	private ArrayList<IWeightInterfaceObserver> observers = new ArrayList<IWeightInterfaceObserver>(); 
 	private FxApp fxApp;
 
-	public WeightGUI() { instance = this; }
+	public WeightInterfaceControllerGUI() { instance = this; }
 	@Override public void run() { FxApp.go(); }
-	public static WeightGUI getInstance() { return instance; }
+	public static WeightInterfaceControllerGUI getInstance() { return instance; }
 	public void setApp(FxApp fxApp) { this.fxApp = fxApp; fxApp.setSim(this); }
 	
 
@@ -35,6 +35,10 @@ public class WeightGUI implements IWeightInterfaceController {
 	@Override
 	public void showMessageSecondaryDisplay(String string) {
 		fxApp.printBottom(string);
+	}
+	@Override
+	public void showMessageTernaryDisplay(String string) {
+		fxApp.printText3(string);
 	}
 	@Override
 	public void changeInputType(InputType type) {
@@ -78,19 +82,23 @@ public class WeightGUI implements IWeightInterfaceController {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Tara());
 		}
-		
 	}
 	void onSendButtonPressed() {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Send());
 		}
 	}
-	public void onNumBtnPressed(char btn){
+	public void onNumButtonPressed(char btn){
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Character(btn));
 		}
 	}
-	public void onSoftBtnPressed(int i) {
+	public void onCancelButtonPressed(){
+		for (IWeightInterfaceObserver o : observers) {
+			o.notifyKeyPress(KeyPress.Cancel());
+		}
+	}
+	public void onSoftButtonPressed(int i) {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.SoftButton(i));
 		}

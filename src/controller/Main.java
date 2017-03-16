@@ -2,7 +2,7 @@ package controller;
 
 import socket.SocketController;
 import weight.IWeightInterfaceController;
-import weight.gui.WeightGUI;
+import weight.gui.WeightInterfaceControllerGUI;
 import socket.ISocketController;
 /**
  * Simple class to fire up application and inject implementations
@@ -14,7 +14,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		ISocketController socketHandler = new SocketController();
-		IWeightInterfaceController weightController = new WeightGUI();
+		IWeightInterfaceController weightController = new WeightInterfaceControllerGUI();
 		//Injecting socket and uiController into mainController - Replace with improved versions...
 		IMainController mainCtrl = new MainController(socketHandler, weightController);
 		//.init and .start could be merged
