@@ -82,8 +82,7 @@ public class SocketController implements ISocketController {
 					//TODO implement
 					break;
 				case "P111": //Show something in secondary display
-					if(inLine.substring(5).length() <= 30 && inLine.length() != 0)
-						notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));
+					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));//Only 30 characters
 					break;
 				case "T": // Tare the weight
 					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
