@@ -101,6 +101,7 @@ public class SocketController implements ISocketController {
 				case "Q": // Quit
 					//TODO implement
 					activeSocket.close();
+				    System.exit(0);
 					break;
 				default: //Something went wrong?
 					//TODO implement
