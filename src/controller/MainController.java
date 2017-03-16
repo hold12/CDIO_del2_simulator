@@ -4,9 +4,13 @@ import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
+import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
+
+import java.util.Locale;
+
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz
@@ -53,11 +57,12 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage()));
 			break;
 		case D:
 			String text = message.getMessage().substring(1,message.getMessage().length()-1);
 			weightController.showMessagePrimaryDisplay(text);
-			socketHandler.sendMessage(new SocketOutMessage("D A\r\n"));
+			socketHandler.sendMessage(new SocketOutMessage("D A"));
 			break;
 		case Q:
 			System.exit(0);
@@ -88,7 +93,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             //show message to user
             weightController.showMessageSecondaryDisplay(text1);
             weightController.showMessagePrimaryDisplay(text2 + text3);
-            socketHandler.sendMessage(new SocketOutMessage("RM20 B\r\n"));
+            socketHandler.sendMessage(new SocketOutMessage("RM20 B"));
             currentState = SocketInMessage.SocketMessageType.RM208;
             break;
 		case S:
@@ -163,7 +168,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
 			}
 			if(currentState == SocketInMessage.SocketMessageType.RM208) {
-				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed + "\r\n"));
+				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
 			}
 			currentState = null;
 			keysPressed = "";
@@ -174,7 +179,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight - tareWeight) + " kg");
 	}
 
 }
