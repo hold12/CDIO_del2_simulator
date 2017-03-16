@@ -56,8 +56,7 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 		Arrays.fill(sftkeysChecked, false);
 		fxApp.softkeysShow(texts, firstSoftkey, sftkeysChecked);
 	}
-	
-	
+
 	// GUI --> System
 	public void onSliderValueChange(Double newValue) {
 		for (IWeightInterfaceObserver o : observers) {
