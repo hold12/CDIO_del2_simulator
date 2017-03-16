@@ -128,6 +128,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		}
 	}
+
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
@@ -147,7 +148,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		case ZERO:
 			break;
-		case C:
+		case CANCEL:
 			break;
 		case EXIT:
 			break;

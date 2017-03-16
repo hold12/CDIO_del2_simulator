@@ -37,6 +37,10 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 		fxApp.printBottom(string);
 	}
 	@Override
+	public void showMessageTernaryDisplay(String string) {
+		fxApp.printText3(string);
+	}
+	@Override
 	public void changeInputType(InputType type) {
 		switch(type){
 		case LOWER: fxApp.setButtonsLower(); break;
@@ -56,7 +60,8 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 		Arrays.fill(sftkeysChecked, false);
 		fxApp.softkeysShow(texts, firstSoftkey, sftkeysChecked);
 	}
-
+	
+	
 	// GUI --> System
 	public void onSliderValueChange(Double newValue) {
 		for (IWeightInterfaceObserver o : observers) {
@@ -77,19 +82,23 @@ public class WeightInterfaceControllerGUI implements IWeightInterfaceController 
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Tara());
 		}
-		
 	}
 	void onSendButtonPressed() {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Send());
 		}
 	}
-	public void onNumBtnPressed(char btn){
+	public void onNumButtonPressed(char btn){
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.Character(btn));
 		}
 	}
-	public void onSoftBtnPressed(int i) {
+	public void onCancelButtonPressed(){
+		for (IWeightInterfaceObserver o : observers) {
+			o.notifyKeyPress(KeyPress.Cancel());
+		}
+	}
+	public void onSoftButtonPressed(int i) {
 		for (IWeightInterfaceObserver o : observers) {
 			o.notifyKeyPress(KeyPress.SoftButton(i));
 		}
