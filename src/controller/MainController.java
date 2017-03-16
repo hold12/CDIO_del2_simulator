@@ -118,6 +118,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			if (P111text.length() > 30)
 				P111text = P111text.substring(0,30);
 			weightController.showMessageSecondaryDisplay(P111text);
+			socketHandler.sendMessage(new SocketOutMessage("P111 A"));
 			break;
 		}
 
