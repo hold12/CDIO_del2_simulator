@@ -107,7 +107,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case DW:
 			this.tareWeight = 0;
 			this.grossWeight = 0;
-			weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight) + " kg");
+			weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight) + "kg");
 			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
@@ -187,7 +187,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight - tareWeight) + " kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight - tareWeight) + "kg");
 	}
 
 }
