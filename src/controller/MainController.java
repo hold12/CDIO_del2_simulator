@@ -4,9 +4,13 @@ import socket.ISocketController;
 import socket.ISocketObserver;
 import socket.SocketInMessage;
 import socket.SocketOutMessage;
+import sun.misc.FloatingDecimal;
 import weight.IWeightInterfaceController;
 import weight.IWeightInterfaceObserver;
 import weight.KeyPress;
+
+import java.util.Locale;
+
 /**
  * MainController - integrating input from socket and ui. Implements ISocketObserver and IUIObserver to handle this.
  * @author Christian Budtz
@@ -53,6 +57,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notify(SocketInMessage message) {
 		switch (message.getType()) {
 		case B:
+			notifyWeightChange(FloatingDecimal.parseDouble(message.getMessage()));
 			break;
 		case D:
 			String text = message.getMessage().substring(1,message.getMessage().length()-1);
@@ -173,7 +178,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	@Override
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
-		weightController.showMessagePrimaryDisplay(String.format("%.3f" , grossWeight - tareWeight) + "kg");
+		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.4f" , grossWeight - tareWeight) + " kg");
 	}
 
 }
