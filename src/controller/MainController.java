@@ -102,14 +102,15 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case T:
 			this.tareWeight = this.grossWeight;
 			notifyWeightChange(grossWeight);
+			socketHandler.sendMessage(new SocketOutMessage("T S      " + String.format("%.3f", tareWeight) + " kg"));
 			break;
 		case DW:
-			this.tareWeight = 0;
-			notifyWeightChange(0);
+			notifyWeightChange(grossWeight);
 			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
 			handleKMessage(message);
+            socketHandler.sendMessage(new SocketOutMessage("K A"));
 			break;
 		case P111:
 			String P111text = message.getMessage().substring(1,message.getMessage().length()-1);
@@ -145,8 +146,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
-		System.out.println(keyPress.getCharacter());
-		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
 			break;
@@ -170,9 +169,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-			}
-			if(currentState == SocketInMessage.SocketMessageType.RM208) {
-				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
+
+				if(currentState == SocketInMessage.SocketMessageType.RM208) {
+					socketHandler.sendMessage(new SocketOutMessage("RM20 A " + "\"" + keysPressed + "\""));
+				}
 			}
 			currentState = null;
 			keysPressed = "";
