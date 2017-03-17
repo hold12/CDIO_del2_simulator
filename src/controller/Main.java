@@ -1,17 +1,15 @@
 package controller;
 
+import socket.ISocketController;
 import socket.SocketController;
 import weight.IWeightInterfaceController;
 import weight.gui.WeightInterfaceControllerGUI;
-import socket.ISocketController;
 /**
  * Simple class to fire up application and inject implementations
  * @author Christian
  *
  */
 public class Main {
-	private static boolean gui= true;
-
 	public static void main(String[] args) {
 		int port = 8000;
 		try {
