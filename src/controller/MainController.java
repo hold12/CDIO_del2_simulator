@@ -110,6 +110,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			break;
 		case K:
 			handleKMessage(message);
+            socketHandler.sendMessage(new SocketOutMessage("K A"));
 			break;
 		case P111:
 			String P111text = message.getMessage().substring(1,message.getMessage().length()-1);
@@ -168,9 +169,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-				
+
 				if(currentState == SocketInMessage.SocketMessageType.RM208) {
-					socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
+					socketHandler.sendMessage(new SocketOutMessage("RM20 A " + "\"" + keysPressed + "\""));
 				}
 			}
 			currentState = null;
