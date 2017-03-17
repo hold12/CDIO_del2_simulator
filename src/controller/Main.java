@@ -13,7 +13,12 @@ public class Main {
 	private static boolean gui= true;
 
 	public static void main(String[] args) {
-		ISocketController socketHandler = new SocketController();
+		int port = 8000;
+		try {
+			port = args.length == 1 ? Integer.parseInt(args[0]) : 8000;
+		} catch (Exception e) {}
+
+		ISocketController socketHandler = new SocketController(port);
 		IWeightInterfaceController weightController = new WeightInterfaceControllerGUI();
 		//Injecting socket and uiController into mainController - Replace with improved versions...
 		IMainController mainCtrl = new MainController(socketHandler, weightController);
