@@ -75,7 +75,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
                 String text2 = messageArray[1];
                 String text3 = messageArray[2].substring(0, messageArray[2].length() - 1);
 
-                //Numeric entry
+                //Key-pad layout
                 if (text3.startsWith("&")) {
                     switch (text3.substring(0, 2)) {
                         case "&1":
@@ -183,13 +183,13 @@ public class MainController implements IMainController, ISocketObserver, IWeight
                 if (keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
                     keysPressed = "";
                     weightController.showMessagePrimaryDisplay(keysPressed);
-                }//Function code is sent
-                if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3)) {
-                    socketHandler.sendMessage(new SocketOutMessage("K A 3"));
                     if (currentState == SocketInMessage.SocketMessageType.RM208) {
                         socketHandler.sendMessage(new SocketOutMessage("RM20 A " + "\"" + keysPressed + "\""));
                     }
                     currentState = null;
+                }//Function code is sent
+                if (keyState.equals(KeyState.K3) || keyState.equals(KeyState.K4)) {
+                    socketHandler.sendMessage(new SocketOutMessage("K A 3"));
                 }
                 break;
         }
