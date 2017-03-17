@@ -102,6 +102,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case T:
 			this.tareWeight = this.grossWeight;
 			notifyWeightChange(grossWeight);
+			socketHandler.sendMessage(new SocketOutMessage("T S      " + String.format("%.3f", tareWeight) + " kg"));
 			break;
 		case DW:
 			notifyWeightChange(grossWeight);
