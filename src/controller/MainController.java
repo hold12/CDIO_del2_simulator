@@ -171,6 +171,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			}
 			if (keyState.equals(keyState.K3) || keyState.equals(keyState.K4)){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
+				notifyWeightChangeSocket(0);
 
 			}
 			break;
