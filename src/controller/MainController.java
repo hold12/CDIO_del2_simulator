@@ -181,11 +181,11 @@ public class MainController implements IMainController, ISocketObserver, IWeight
             case SEND:
                 //Function is executed
                 if (keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
-                    keysPressed = "";
-                    weightController.showMessagePrimaryDisplay(keysPressed);
                     if (currentState == SocketInMessage.SocketMessageType.RM208) {
                         socketHandler.sendMessage(new SocketOutMessage("RM20 A " + "\"" + keysPressed + "\""));
                     }
+                    keysPressed = "";
+                    weightController.showMessagePrimaryDisplay(keysPressed);
                     currentState = null;
                 }//Function code is sent
                 if (keyState.equals(KeyState.K3) || keyState.equals(KeyState.K4)) {
