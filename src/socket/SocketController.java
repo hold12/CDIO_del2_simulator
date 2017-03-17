@@ -73,18 +73,18 @@ public class SocketController implements ISocketController {
 					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(2)));
 					break;
 				case "DW": //Clear primary display
-					notifyObservers(new SocketInMessage(SocketMessageType.DW, ""));
-					break;
-				case "P111": //Show something in secondary display
-					notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));//Only 30 characters
-					break;
-				case "T": // Tare the weight
-					notifyObservers(new SocketInMessage(SocketMessageType.T, inLine));
-					break;
-				case "S": // Request the current load
-					notifyObservers(new SocketInMessage(SocketMessageType.S, ""));
-					break;
-				case "K":
+                    notifyObservers(new SocketInMessage(SocketMessageType.DW, null));
+                    break;
+                    case "P111": //Show something in secondary display
+                    notifyObservers(new SocketInMessage(SocketMessageType.P111, inLine.substring(5)));
+                    break;
+                    case "T": // Tare the weight
+                    notifyObservers(new SocketInMessage(SocketMessageType.T, null));
+                    break;
+                    case "S": // Request the current load
+                    notifyObservers(new SocketInMessage(SocketMessageType.S, null));
+                    break;
+                    case "K":
 					if (inLine.split(" ").length>1){
 						notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
 					}
