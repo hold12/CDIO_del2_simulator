@@ -150,16 +150,30 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
-            this.tareWeight = this.grossWeight;
-            notifyWeightChange(grossWeight);
+			if(keyState.equals(keyState.K1) || keyState.equals(keyState.equals(keyState.K4))) {
+				this.tareWeight = this.grossWeight;
+				notifyWeightChange(grossWeight);
+			}
+			if (keyState.equals(keyState.K3) || keyState.equals(keyState.K4)){
+				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
+				notifyWeightChangeSocket(grossWeight);
+			}
+
 			break;
 		case TEXT:
             keysPressed+=keyPress.getCharacter();
 		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
-            this.tareWeight = 0;
-			notifyWeightChange(0);
+			if(keyState.equals(keyState.K1) || keyState.equals(keyState.equals(keyState.K4))) {
+				this.tareWeight = 0;
+				notifyWeightChange(0);
+			}
+			if (keyState.equals(keyState.K3) || keyState.equals(keyState.K4)){
+				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
+				notifyWeightChangeSocket(0);
+
+			}
 			break;
 		case CANCEL:
 			break;
@@ -184,6 +198,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	public void notifyWeightChange(double newWeight) {
 		grossWeight = newWeight;
 		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight - tareWeight) + "kg");
+	}
+	public void notifyWeightChangeSocket(double newWeight){
+		grossWeight = newWeight;
+		socketHandler.sendMessage(new SocketOutMessage(String.format(Locale.US, "%.3f" , grossWeight) + "kg"));
 	}
 
 }
