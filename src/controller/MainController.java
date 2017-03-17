@@ -104,8 +104,7 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			notifyWeightChange(grossWeight);
 			break;
 		case DW:
-			this.tareWeight = 0;
-			notifyWeightChange(0);
+			notifyWeightChange(grossWeight);
 			socketHandler.sendMessage(new SocketOutMessage("DW A"));
 			break;
 		case K:
