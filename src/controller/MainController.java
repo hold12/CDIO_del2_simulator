@@ -145,8 +145,6 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 	//Listening for UI input
 	@Override
 	public void notifyKeyPress(KeyPress keyPress) {
-		System.out.println(keyPress.getCharacter());
-		//TODO implement logic for handling input from ui
 		switch (keyPress.getType()) {
 		case SOFTBUTTON:
 			break;
@@ -170,9 +168,10 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SEND:
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-			}
-			if(currentState == SocketInMessage.SocketMessageType.RM208) {
-				socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
+				
+				if(currentState == SocketInMessage.SocketMessageType.RM208) {
+					socketHandler.sendMessage(new SocketOutMessage("RM20 A " + keysPressed));
+				}
 			}
 			currentState = null;
 			keysPressed = "";
