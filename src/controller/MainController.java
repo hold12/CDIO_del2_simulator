@@ -150,13 +150,13 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		case SOFTBUTTON:
 			break;
 		case TARA:
-			if(keyState.equals(keyState.K1) || keyState.equals(keyState.equals(keyState.K4))) {
+			//Function is executed
+			if(keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
 				this.tareWeight = this.grossWeight;
 				notifyWeightChange(grossWeight);
-			}
-			if (keyState.equals(keyState.K3) || keyState.equals(keyState.K4)){
-				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-				notifyWeightChangeSocket(grossWeight);
+			}//Function code is sent
+			if (keyState.equals(KeyState.K3) || keyState.equals(KeyState.K4)){
+				socketHandler.sendMessage(new SocketOutMessage("K A 1"));
 			}
 
 			break;
@@ -165,14 +165,13 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		    weightController.showMessagePrimaryDisplay(keysPressed);
 			break;
 		case ZERO:
-			if(keyState.equals(keyState.K1) || keyState.equals(keyState.equals(keyState.K4))) {
+			//Function is executed
+			if(keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
 				this.tareWeight = 0;
 				notifyWeightChange(0);
-			}
-			if (keyState.equals(keyState.K3) || keyState.equals(keyState.K4)){
-				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-				notifyWeightChangeSocket(0);
-
+			}//Function code is sent
+			if (keyState.equals(KeyState.K3) || keyState.equals(KeyState.K4)){
+				socketHandler.sendMessage(new SocketOutMessage("K A 2"));
 			}
 			break;
 		case CANCEL:
@@ -181,15 +180,18 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 			System.exit(0);
 			break;
 		case SEND:
+			//Function is executed
+			if(keyState.equals(KeyState.K1) || keyState.equals(KeyState.K4)) {
+				keysPressed = "";
+				weightController.showMessagePrimaryDisplay(keysPressed);
+			}//Function code is sent
 			if (keyState.equals(KeyState.K4) || keyState.equals(KeyState.K3) ){
 				socketHandler.sendMessage(new SocketOutMessage("K A 3"));
-
 				if(currentState == SocketInMessage.SocketMessageType.RM208) {
 					socketHandler.sendMessage(new SocketOutMessage("RM20 A " + "\"" + keysPressed + "\""));
 				}
+				currentState = null;
 			}
-			currentState = null;
-			keysPressed = "";
             break;
 		}
 	}
@@ -199,9 +201,4 @@ public class MainController implements IMainController, ISocketObserver, IWeight
 		grossWeight = newWeight;
 		weightController.showMessagePrimaryDisplay(String.format(Locale.US, "%.3f" , grossWeight - tareWeight) + "kg");
 	}
-	public void notifyWeightChangeSocket(double newWeight){
-		grossWeight = newWeight;
-		socketHandler.sendMessage(new SocketOutMessage(String.format(Locale.US, "%.3f" , grossWeight) + "kg"));
-	}
-
 }
