@@ -63,7 +63,6 @@ public class SocketController implements ISocketController {
 			//TODO this only allows for one open connection - how would you handle multiple connections?
 			while (true){
 				inLine = inStream.readLine();
-				System.out.println(inLine);
 				if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
@@ -71,7 +70,6 @@ public class SocketController implements ISocketController {
 						notifyObservers(new SocketInMessage(SocketMessageType.RM208, inLine.substring(7)));
 					break;
 				case "D":// Display a message in the primary display
-					//TODO Refactor to make sure that faulty messages doesn't break the system
 					notifyObservers(new SocketInMessage(SocketMessageType.D, inLine.substring(2)));
 					break;
 				case "DW": //Clear primary display
