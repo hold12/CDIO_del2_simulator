@@ -46,8 +46,9 @@ public class SocketController implements ISocketController {
 		//TODO some logic for listening to a socket //(Using try with resources for auto-close of socket)
  		try (ServerSocket listeningSocket = new ServerSocket(port)){
 			while (true){
-				waitForConnections(listeningSocket);
-			}
+                sendMessage(new SocketOutMessage("I4 A")); //First message after turning on the weight
+                waitForConnections(listeningSocket);
+            }
 		} catch (IOException e1) {
 			// TODO Maybe notify MainController?
 			e1.printStackTrace();
@@ -65,9 +66,10 @@ public class SocketController implements ISocketController {
 			//.readLine is a blocking call
 			//TODO How do you handle simultaneous input and output on socket?
 			//TODO this only allows for one open connection - how would you handle multiple connections?
-			while (true){
-				inLine = inStream.readLine();
-				if (inLine==null) break;
+
+            while (true) {
+                inLine = inStream.readLine();
+                if (inLine==null) break;
 				switch (inLine.split(" ")[0]) {
 				case "RM20": // Display a message in the secondary display and wait for response
 					if (inLine.split(" ")[1].equals("8"))
@@ -89,7 +91,7 @@ public class SocketController implements ISocketController {
                     notifyObservers(new SocketInMessage(SocketMessageType.S, null));
                     break;
                     case "K":
-					if (inLine.split(" ").length>1){
+                        if (inLine.split(" ").length>1){
 						notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
 					}
 					break;
@@ -100,7 +102,10 @@ public class SocketController implements ISocketController {
 					activeSocket.close();
 					notifyObservers(new SocketInMessage(SocketMessageType.Q,null));
 					break;
-				default: //Something went wrong?
+                    case "@":
+                        notifyObservers(new SocketInMessage(SocketMessageType.reset, null));
+                        break;
+                    default: //Something went wrong?
 					//TODO implement
 					break;
 				}
