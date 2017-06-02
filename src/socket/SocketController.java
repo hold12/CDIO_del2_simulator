@@ -89,7 +89,7 @@ public class SocketController implements ISocketController {
                     notifyObservers(new SocketInMessage(SocketMessageType.S, null));
                     break;
                     case "K":
-					if (inLine.split(" ").length>1){
+                        if (inLine.split(" ").length>1){
 						notifyObservers(new SocketInMessage(SocketMessageType.K, inLine.split(" ")[1]));
 					}
 					break;
@@ -100,7 +100,10 @@ public class SocketController implements ISocketController {
 					activeSocket.close();
 					notifyObservers(new SocketInMessage(SocketMessageType.Q,null));
 					break;
-				default: //Something went wrong?
+                    case "@":
+                        notifyObservers(new SocketInMessage(SocketMessageType.reset, null));
+                        break;
+                    default: //Something went wrong?
 					//TODO implement
 					break;
 				}

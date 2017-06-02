@@ -119,6 +119,9 @@ public class MainController implements IMainController, ISocketObserver, IWeight
                 weightController.showMessageSecondaryDisplay(P111text);
                 socketHandler.sendMessage(new SocketOutMessage("P111 A"));
                 break;
+            case reset:
+                socketHandler.sendMessage(new SocketOutMessage("I4 A"));
+                break;
         }
 
     }
@@ -174,6 +177,8 @@ public class MainController implements IMainController, ISocketObserver, IWeight
                 }
                 break;
             case CANCEL:
+                keysPressed = "";
+                weightController.showMessagePrimaryDisplay(keysPressed);
                 break;
             case EXIT:
                 System.exit(0);
