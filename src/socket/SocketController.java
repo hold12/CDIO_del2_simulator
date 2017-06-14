@@ -46,7 +46,6 @@ public class SocketController implements ISocketController {
 		//TODO some logic for listening to a socket //(Using try with resources for auto-close of socket)
  		try (ServerSocket listeningSocket = new ServerSocket(port)){
 			while (true){
-                sendMessage(new SocketOutMessage("I4 A")); //First message after turning on the weight
                 waitForConnections(listeningSocket);
             }
 		} catch (IOException e1) {
@@ -66,6 +65,8 @@ public class SocketController implements ISocketController {
 			//.readLine is a blocking call
 			//TODO How do you handle simultaneous input and output on socket?
 			//TODO this only allows for one open connection - how would you handle multiple connections?
+
+			sendMessage(new SocketOutMessage("I4 A")); //First message after turning on the weight
 
             while (true) {
                 inLine = inStream.readLine();
